@@ -90,4 +90,4 @@ for logfile in $(/bin/ls -A /root/system-snapshot/*/*.log); do
         checkmysql $logfile
         checkapache $logfile
 done
-Echo "Finished!"
+echo "Finished!"
