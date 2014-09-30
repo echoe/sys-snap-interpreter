@@ -52,8 +52,8 @@ function checkps
 
 function checknetwork 
 {
-        #may be unnecessary networklist=`sed -n '/Network Connections:/,/MYSQL Processes:/p' $logfile | head -n -2 | tail -n +3
-        networklist=`echo $networklist | sed -n '/Active Internet connections/,/Active UNIX domain sockets/p' | head -n -1 | tail -n +3`
+        #may be unnecessary networklist=`sed -n '/Network Connections:/,/MYSQL Processes:/p' $1 | head -n -2 | tail -n +3
+        networklist=`echo $networklist | sed -n '/Active Internet connections/,/Active UNIX domain sockets/p' $1 | head -n -1 | tail -n +3`
 
         networknum=`echo $networklist | wc -l`
         networkips=`echo $networklist | awk '{print $5}' | sort | uniq -c | head -n 5`
@@ -64,7 +64,7 @@ function checknetwork
 
 function checkmysql 
 {
-        mysqllist=`sed -n '/MYSQL Processes:/,/Apache Processes:/p' $logfile | head -n -2 | tail -n +3`
+        mysqllist=`sed -n '/MYSQL Processes:/,/Apache Processes:/p' $1 | head -n -2 | tail -n +3`
         mysqlnum=`echo $mysqllist | wc -l`
         if [[ $mysqlnum -gt 20 ]] ; then
                 echo "Date" $thetime "Number of mysql connections" $mysqlnum
@@ -73,7 +73,7 @@ function checkmysql
 
 function checkapache 
 {
-        apachelist=`sed -n '/Apache Processes:/,/Network Connections:/p' $logfile | head -n -2 | tail -n +3`
+        apachelist=`sed -n '/Apache Processes:/,/Network Connections:/p' $1 | head -n -2 | tail -n +3`
         apachenum=`echo $apachelist | wc -l`
         if [[ $apachenum -gt 100 ]] ; then
                 echo "Date" $thetime "Number of httpd connections" $apachenum;
