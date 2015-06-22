@@ -1,5 +1,4 @@
 #!/usr/local/python
-#sam felshman
 #sys-snap interpreter, written for cPanel's version
 #Version 0.04
 
